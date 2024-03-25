@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./CSS/login.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div id="root">
+        <div class="content_wrapper">
+            <div class="sticker">
+                <div class="sticker1"><img src="../Images/sticker_orange_small.png" alt=""></div>
+                <div class="sticker2"><img src="../Images/sticker_orange_big.png" alt=""></div>
+                <div class="sticker3"><img src="../Images/sticker_blue.png" alt=""></div>
+            </div>
+            <div class="main_body">
+                <div class="body_image">
+                    <div class="picture">
+                        <img src="../Images/SGroup.png" alt="">
+                    </div>
+                    <div class="logo"></div>
+                </div>
+                <div class="body_content">
+                    <div class="content_title">
+                        <div class="title_item" id="register_style">
+                            <h2 id="register_page">Register</h2>
+                        </div>
+                        <div class="title_item" id="login_style">
+                            <h2 id="login_page">Login</h2>
+                        </div>
+                    </div>
+                    <div class="main_content">
+                        <div class="content_input">
+                            <div class="input_area" id="register_area">
+                                <div class="username_area input_item">
+                                    <label>Email</label>
+                                    <input id="new_username" type="email" placeholder="Enter your email" autofocus required>
+                                </div>
+
+                                <div class="password_area input_item">
+                                    <label>Password</label>
+                                    <input id="new_password" placeholder="Enter your password" required>
+                                </div>
+                            </div>
+
+                            <div class="input_area" id="login_area">
+                                <div class="username_area input_item">
+                                    <label>Username</label>
+                                    <input id="username" placeholder="Enter your username" autofocus required>
+                                </div>
+
+                                <div class="password_area input_item">
+                                    <label>Password</label>
+                                    <input id="password" placeholder="Enter your password" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content_checkbox"></div>
+                        <div class="content_button">
+                            <button id="open_register" class="button"> <p>Register</p></button>
+                            <button id="open_login" class="button"><p>Login</p></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
