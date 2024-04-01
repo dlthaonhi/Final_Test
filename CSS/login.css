@@ -90,7 +90,7 @@
 
 
 #login_style {
-
+    padding-bottom: 4px;
     border-bottom: 2px solid #11698E;
 }
 
@@ -172,6 +172,80 @@
   
     color: rgba(0, 0, 0, 0.25);
 
+}
+
+.content_checkbox {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.content_checkbox input {
+    width: 16px;
+    height: 16px;
+    accent-color: #00A6DA;
+}
+
+
+.content_checkbox p {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 410;
+    font-size: 12px;
+    line-height: 22px;
+
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 15px;
+    margin-top: 20px;
+
+    width: 278px;
+    height: 38px;
+
+    background: #00A6DA;
+    box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
+    border-radius: 41px;
+    border: none;
+
+    cursor: pointer;
+
+}
+
+button p {
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+}
+
+
+#open_register {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: flex;
+}
+
+.border-none {
+    border-bottom: none;
+}
+.border {
+    border-bottom: 2px solid #11698E
 }
 
 
