@@ -16,9 +16,16 @@
 <body>
     <div id="root">
         <div class="content_wrapper">
-            <div class="logo">
-                <img src="../Images/logo_task.png" alt="">
+            <div class="header">
+                <div class="logo">
+                    <img src="../Images/logo_task.png" alt="">
+                </div>
+                <div id="new_task">
+                    <i class="fa-solid fa-plus"></i>
+                    <p>New task</p>
+                </div>
             </div>
+
             <div class="main_content">
                 <div class="content_item">
                     <div class="content_title">
@@ -57,6 +64,26 @@
                 <div class="content_item"></div>
             </div>
         </div>
+
+        <div id="new_todo">
+            <div class="background_task"></div>
+            <div class="new_todo_area">
+                <i id="close_task" class="fa-solid fa-xmark"></i>
+                <p>Add new todo</p>
+                <div class="task_body">
+                    <div class="task_input">
+                        <input id="new_cate" type="text" placeholder="Category. Etc: Marketing..." autofocus required>
+                        <input id="new_title" type="text" placeholder="Title" required>
+                        <textarea name="" id="new_content" placeholder="Content" cols="40" rows="4"></textarea>
+                    </div>
+                    <div class="task_submit">
+                        <button id="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script src="../JS/index.js"></script>
 </body>
 </html>
