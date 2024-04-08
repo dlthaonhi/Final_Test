@@ -30,7 +30,7 @@
                 <div class="content_item">
                     <div class="content_title">
                         <h3>Todo</h3>
-                        <p id="todoCounter"></p>
+                        <p id="todoCounter">0</p>
                     </div>
                     <ul class="main_area">
                         <li class="task_area">
@@ -56,9 +56,93 @@
                         </li>
                     </ul>
                 </div>
-                <div class="content_item"></div>
-                <div class="content_item"></div>
-                <div class="content_item"></div>
+                <div class="content_item">
+                    <div class="content_title">
+                        <h3>Doing</h3>
+                        <p id="doingCounter">0</p>
+                    </div>
+                    <ul class="main_area">
+                        <li class="task_area">
+                            <div class="task_title">
+                                <div class="task_title_text">
+                                    <p>Marketing</p>
+                                    <h4>Write SEO article for new product</h4>
+                                </div>
+                                <div class="task_title_icon">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </div>
+                            </div>
+                            <div class="task_content">
+                                <div class="task_main">
+                                    <p>This is an existential moment for effective altruism and the rationalist community writ-large. </p>
+                                </div>
+                                <div class="task_date">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <p>June 30, 2022</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content_item">
+                    <div class="content_title">
+                        <h3>Completed</h3>
+                        <p id="completedCounter">0</p>
+                    </div>
+                    <ul class="main_area">
+                        <li class="task_area">
+                            <div class="task_title">
+                                <div class="task_title_text">
+                                    <p>Marketing</p>
+                                    <h4>Write SEO article for new product</h4>
+                                </div>
+                                <div class="task_title_icon">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </div>
+                            </div>
+                            <div class="task_content">
+                                <div class="task_main">
+                                    <p>This is an existential moment for effective altruism and the rationalist community writ-large. </p>
+                                </div>
+                                <div class="task_date">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <p>June 30, 2022</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content_item">
+                    <div class="content_title color1">
+                        <h3>Blocked</h3>
+                        <p id="blockedCounter">0</p>
+                    </div>
+                    <ul class="main_area">
+                        <li class="task_area">
+                            <div class="task_title">
+                                <div class="task_title_text">
+                                    <p>Marketing</p>
+                                    <h4>Write SEO article for new product</h4>
+                                </div>
+                                <div class="task_title_icon">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </div>
+                            </div>
+                            <div class="task_content">
+                                <div class="task_main">
+                                    <p>This is an existential moment for effective altruism and the rationalist community writ-large. </p>
+                                </div>
+                                <div class="task_date">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <p>June 30, 2022</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -66,15 +150,34 @@
             <div class="background_task"></div>
             <div class="new_todo_area">
                 <i id="close_task" class="fa-solid fa-xmark"></i>
-                <p>Add new todo</p>
+                <p class="new_todo_title">Add new todo</p>
                 <div class="task_body">
                     <div class="task_input">
                         <input id="new_cate" type="text" placeholder="Category. Etc: Marketing..." autofocus required>
                         <input id="new_title" type="text" placeholder="Title" required>
                         <textarea name="" id="new_content" placeholder="Content" cols="40" rows="4"></textarea>
                     </div>
+                    <div class="task_choice">
+                        <div>
+                            <input type="radio" id="todoChoice" name="status" value="todo" checked>
+                            <label for="todoChoice">To do</label><br>
+                        </div>
+                        <div>
+                            <input type="radio" id="doingChoice" name="status" value="doing">
+                            <label for="doingChoice">Doing</label><br>
+                        </div>
+                        <div>
+                            <input type="radio" id="completedChoice" name="status" value="completed">  
+                            <label for="completedChoice">Completed</label><br>
+                        </div>
+                        <div>
+                            <input type="radio" id="blockedChoice" name="status" value="blocked">  
+                            <label for="blockedChoice">Blocked</label><br>
+                        </div>
+                    </div>
                     <div class="task_submit">
                         <button id="submit">Submit</button>
+                        <button id="edit">Submit'</button>
                     </div>
                 </div>
             </div>
