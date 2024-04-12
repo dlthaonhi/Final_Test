@@ -1,5 +1,6 @@
 var taskIdCounter=0; 
 const status_array = ['todo', 'doing', 'completed', 'blocked'];
+var lists = document.querySelectorAll(".main_area");
 
 document.addEventListener("DOMContentLoaded", function () {
     
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("close_task").addEventListener("click", function() {
         document.getElementById("new_todo").style.display = 'none';
+        resetForm();
     });
 
     document.getElementById("submit").addEventListener("click", storeNewTask);
@@ -59,6 +61,52 @@ function resetForm() {
     document.getElementById('new_cate').value = '';
     document.getElementById('new_title').value = '';
     document.getElementById('new_content').value = '';
+    document.getElementById('new_cate').style.border = "1px solid black";
+    document.getElementById('new_title').style.border = "1px solid black";
+    document.getElementById('new_content').style.border = "1px solid black";
+    console.log("da reset");
+}
+
+
+function checkValue(new_cate,new_title,new_content) {
+    let check = 0;
+    console.log(new_cate);
+    if (!new_cate || (/^\s*$/.test(new_cate))) {
+        console.log("Chưa nhập Category");
+        document.getElementById('new_cate').style.border = "2px solid #ff0000";
+        check ++;
+    }
+    else document.getElementById('new_cate').style.border = "2px solid #3BC057";
+    if (!new_title || (/^\s*$/.test(new_title))) {
+        console.log("Chưa nhập Title");
+        document.getElementById('new_title').style.border = "2px solid #ff0000";
+        check ++;
+    }
+    else document.getElementById('new_title').style.border = "2px solid #3BC057";
+    if (!new_content || (/^\s*$/.test(new_content))) {
+        console.log("Chưa nhập Content");
+        document.getElementById('new_content').style.border = "2px solid #ff0000";
+        check++;
+    }
+    else document.getElementById('new_content').style.border = "2px solid #3BC057";
+    if (check > 0) return false;
+    else return true;
+}
+
+function checkElement(element) {
+    console.log(element);
+
+
+    const value = element.value;
+
+
+
+    if (!value || (/^\s*$/.test(value))) {
+        console.log("Chưa nhập Category");
+        document.getElementById(element.id).style.border = "2px solid #ff0000";
+    }
+    else document.getElementById(element.id).style.border = "2px solid #3BC057";
+
 }
 
 const date = new Date().toLocaleDateString('en-US', {
@@ -105,66 +153,10 @@ function storeNewTask() {
     
 }
 
-function checkValue(new_cate,new_title,new_content) {
-    let check = 0;
-    console.log(new_cate);
-    if (!new_cate || (/^\s*$/.test(new_cate))) {
-        console.log("Chưa nhập Category");
-        document.getElementById('new_cate').classList.add("check_false");
-        check ++;
-    }
-    else document.getElementById('new_cate').classList.add("check_true");
-    if (!new_title || (/^\s*$/.test(new_title))) {
-        console.log("Chưa nhập Title");
-        document.getElementById('new_title').classList.add("check_false");
-        check ++;
-    }
-    else document.getElementById('new_title').classList.add("check_true");
-    if (!new_content || (/^\s*$/.test(new_content))) {
-        console.log("Chưa nhập Content");
-        document.getElementById('new_content').classList.add("check_false");
-        check++;
-    }
-    else document.getElementById('new_content').classList.add("check_true");
-    if (check > 0) return false;
-    else return true;
-}
-
 // let taskIdCounter = 0;
 // var todoCounter = document.getElementById("todoCounter")
 // todoCounter = taskIdCounter;
 
-function renderTasks(taskList = []) {
-    let content = '<ul>'
-
-    taskList.forEach( (task) => {
-        content += `<li class="task_area">
-                            <div class="task_title">
-                                <div class="task_title_text">
-                                    <p>Marketing</p>
-                                    <h4>Write SEO article for new product</h4>
-                                </div>
-                                <div class="task_title_icon">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </div>
-                            </div>
-                            <div class="task_content">
-                                <div class="task_main">
-                                    <p>This is an existential moment for effective altruism and the rationalist community writ-large. </p>
-                                </div>
-                                <div class="task_date">
-                                    <i class="fa-regular fa-clock"></i>
-                                    <p>June 30, 2022</p>
-                                </div>
-                            </div>
-                        </li>`
-    })
-
-    content += '</ul>'
-
-    document.querySelector("#result").innerHTML = content ;
-}
 
 var taskId;
 function addNewTask(task,addList) {
@@ -185,6 +177,7 @@ function addNewTask(task,addList) {
             </div>
         </div>
         <div class="task_content">
+            <div class="line"></div>
             <div class="task_main">
                 <p>${task.content}</p>
             </div>
@@ -194,18 +187,66 @@ function addNewTask(task,addList) {
             </div>
         </div>
     `;
+
+    li.draggable = true;
+    
+
     tasks.appendChild(li);
+
+    // li.addEventListener('dragstart', function(e) {
+    //     // let selectedTask = e.target;
+    //     // e.dataTransfer.setData('text/plain', task.id);
+    //     taskId = this.getAttribute("data-id");
+    //     console.log("ID :", taskId);
+    //     console.log('selected');
+
+    //     lists.forEach(list => {
+    //         list.addEventListener('dragover', function(e) {
+    //             e.preventDefault();
+    //             // this.appendChild(li)
+    //             console.log('over');
+    //         })
+    //         list.addEventListener('drop', function(e) {
+    //             e.preventDefault();
+    //             // const taskId = e.dataTransfer.getData('text/plain');
+    //             // const draggedTask = document.getElementById(taskId);
+    //             console.log('drop');
+    //             this.appendChild(li)
+    //         })
+    //     })
+    // })
+
+   li.addEventListener('dragstart', function(e) {
+        // let selectedTask = e.target;
+        // e.dataTransfer.setData('text/plain', task.id);
+        taskId = this.getAttribute("data-id");
+        console.log("ID :", taskId);
+        console.log('selected');
+
+    lists.forEach(list => {
+        list.addEventListener('dragover', function(e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định khi kéo qua
+            // console.log('dragover:', e);
+            console.log('over');
+        });
+        list.addEventListener('drop', function(e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định khi thả
+            // const taskId = e.dataTransfer.getData('text/plain');
+            // const draggedTask = document.getElementById(taskId);
+            console.log('drop:', e);
+            console.log('drop');
+            this.appendChild(li);
+            // this.appendChild(draggedTask); // Thêm phần tử kéo vào phần tử mục tiêu
+        });
+    });
+    
+})
+
 
 
     let status = task.status;
     document.querySelector(`input[name="status"][value="${status}"]`).checked = true;
-    // Lưu lại giá trị status vào localStorage khi radio button thay đổi
-    // document.querySelectorAll('input[name="status"]').forEach(radio => {
-    //     radio.addEventListener("change", function() {
-    //         localStorage.setItem("status", this.value);
-    //     });
-    // });
-    
+
 
     const deleteButton = li.querySelector(".delete_task");
     deleteButton.addEventListener("click", function() {
@@ -223,23 +264,6 @@ function addNewTask(task,addList) {
 
 }
 
-// document.addEventListener("click", function(event) {
-//     const target = event.target;
-
-//     // Kiểm tra nếu nút "edit" được nhấn
-//     if (target.classList.contains('edit_task')) {
-//         const taskElement = target.closest('.task_area');
-//         const taskId = taskElement.dataset.id; // Sử dụng dataset để lấy id
-//         editTask(taskId);
-//     }
-
-//     // Kiểm tra nếu nút "delete" được nhấn
-//     if (target.classList.contains('delete_task')) {
-//         const taskElement = target.closest('.task_area');
-//         const taskId = taskElement.dataset.id; // Sử dụng dataset để lấy id
-//         deleteTask(taskId, 'taskList');
-//     }
-// });
 
 
 // -----EDIT_TASK-----
@@ -251,11 +275,13 @@ var deleteList;
 //Khi bam icon Edit
 function editTask(taskId) {
     //Hien giao dien Edit
+    resetForm();
     document.querySelector('.task_choice').style.display = 'flex';
     document.getElementById("new_todo").style.display = 'block';
     document.querySelector(".new_todo_title").textContent = "Edit Task";
     document.getElementById("submit").style.display = 'none';
     document.getElementById("edit").style.display = 'block';
+    document.querySelector(".task_choice").style.display=''
 
     // // console.log(this.status);
     // let statusOld = this.parentNode;
@@ -327,34 +353,41 @@ function storeTask(taskId,localList,oldList) {
     let localTakeList = JSON.parse(localStorage.getItem(String(localList))) || [];
 
     // console.log(ra);
-    const task = { 
-        id: taskId,
-        category: document.getElementById('new_cate').value, 
-        title: document.getElementById('new_title').value, 
-        content: document.getElementById('new_content').value,
-        status: radios[i].value
-    };
-    console.log(task);
-    console.log(editing_task_index);
+    const new_cate = document.getElementById('new_cate').value;
+    const new_title = document.getElementById('new_title').value;
+    const new_content = document.getElementById('new_content').value;
 
-    if (String(localList) !== String(oldList)) {
-        localTakeList.push(task);
-        localStorage.setItem(String(localList),JSON.stringify(localTakeList))
-        deleteTask(taskId,oldList);
+    let check = checkValue(new_cate, new_title, new_content); 
+    if (check == true) {
+        const task = { 
+            id: taskId,
+            category: new_cate, 
+            title: new_title, 
+            content: new_content,
+            status: radios[i].value
+        };
+        console.log(task);
+        console.log(editing_task_index);
+    
+        if (String(localList) !== String(oldList)) {
+            localTakeList.push(task);
+            localStorage.setItem(String(localList),JSON.stringify(localTakeList))
+            deleteTask(taskId,oldList);
+            }
+        else {
+            oldTakeList[editing_task_index]=task;
+            localStorage.setItem(String(oldList),JSON.stringify(oldTakeList))
+            const taskElement = document.querySelector(`.delete_task[data-id="${taskId}"]`).closest('.task_area');
+            taskElement.remove();       
         }
-    else {
-        oldTakeList[editing_task_index]=task;
-        localStorage.setItem(String(oldList),JSON.stringify(oldTakeList))
-        const taskElement = document.querySelector(`.delete_task[data-id="${taskId}"]`).closest('.task_area');
-        taskElement.remove();       
+        // localStorage.setItem(String(localList), JSON.stringify(taskList));
+    
+        document.getElementById("new_todo").style.display = 'none';
+    
+    
+        reload();
+        resetForm();
     }
-    // localStorage.setItem(String(localList), JSON.stringify(taskList));
-
-    document.getElementById("new_todo").style.display = 'none';
-
-
-    reload();
-    resetForm();
 
 }
 

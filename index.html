@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo</title>
     <link rel="stylesheet" href="./CSS/index.css">
+    <link rel="stylesheet" href="./CSS/responsive.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,27 +34,7 @@
                         <p id="todoCounter">0</p>
                     </div>
                     <ul class="main_area" id="todoList">
-                        <li class="task_area">
-                            <div class="task_title">
-                                <div class="task_title_text">
-                                    <p>Marketing</p>
-                                    <h4>Write SEO article for new product</h4>
-                                </div>
-                                <div class="task_title_icon">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </div>
-                            </div>
-                            <div class="task_content">
-                                <div class="task_main">
-                                    <p>This is an existential moment for effective altruism and the rationalist community writ-large. </p>
-                                </div>
-                                <div class="task_date">
-                                    <i class="fa-regular fa-clock"></i>
-                                    <p>June 30, 2022</p>
-                                </div>
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
                 <div class="content_item">
@@ -62,27 +43,7 @@
                         <p id="doingCounter">0</p>
                     </div>
                     <ul class="main_area" id="doingList">
-                        <li class="task_area">
-                            <div class="task_title">
-                                <div class="task_title_text">
-                                    <p>Marketing</p>
-                                    <h4>Write SEO article for new product</h4>
-                                </div>
-                                <div class="task_title_icon">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </div>
-                            </div>
-                            <div class="task_content">
-                                <div class="task_main">
-                                    <p>This is an existential moment for effective altruism and the rationalist community writ-large. </p>
-                                </div>
-                                <div class="task_date">
-                                    <i class="fa-regular fa-clock"></i>
-                                    <p>June 30, 2022</p>
-                                </div>
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
                 <div class="content_item">
@@ -91,27 +52,7 @@
                         <p id="completedCounter">0</p>
                     </div>
                     <ul class="main_area" id="completedList">
-                        <li class="task_area">
-                            <div class="task_title">
-                                <div class="task_title_text">
-                                    <p>Marketing</p>
-                                    <h4>Write SEO article for new product</h4>
-                                </div>
-                                <div class="task_title_icon">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </div>
-                            </div>
-                            <div class="task_content">
-                                <div class="task_main">
-                                    <p>This is an existential moment for effective altruism and the rationalist community writ-large. </p>
-                                </div>
-                                <div class="task_date">
-                                    <i class="fa-regular fa-clock"></i>
-                                    <p>June 30, 2022</p>
-                                </div>
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
                 <div class="content_item">
@@ -120,7 +61,7 @@
                         <p id="blockedCounter">0</p>
                     </div>
                     <ul class="main_area" id="blockedList">
-                        <li class="task_area">
+                        <!-- <li class="task_area">
                             <div class="task_title">
                                 <div class="task_title_text">
                                     <p>Marketing</p>
@@ -140,7 +81,7 @@
                                     <p>June 30, 2022</p>
                                 </div>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -153,9 +94,9 @@
                 <p class="new_todo_title">Add new todo</p>
                 <div class="task_body">
                     <div class="task_input">
-                        <input id="new_cate" type="text" placeholder="Category. Etc: Marketing..." autofocus required>
-                        <input id="new_title" type="text" placeholder="Title" required>
-                        <textarea name="" id="new_content" placeholder="Content" cols="40" rows="4"></textarea>
+                        <input id="new_cate" type="text" placeholder="Category. Etc: Marketing..." onchange="checkElement(this)" autofocus required>
+                        <input id="new_title" type="text" placeholder="Title" onchange="checkElement(this)" required>
+                        <textarea name="" id="new_content" placeholder="Content" onchange="checkElement(this)" cols="40" rows="4"></textarea>
                     </div>
                     <div class="task_choice">
                         <div>
@@ -185,5 +126,6 @@
     </div>
 
     <script src="./JS/index1.js"></script>
+    <script src="./JS/drag_drop.js"></script>
 </body>
 </html>

@@ -1,0 +1,33 @@
+/* Small devices (landscape phones, 576px and down) */
+@media screen and (max-width: 575.99px) {
+    .header {
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 3%;
+    }
+    .logo img {
+        width: 45%;
+    }
+    #new_task {
+        border: 1px solid black;
+    }
+
+
+
+    .main_content {
+        flex-direction: column;
+    }
+    .content_item {
+        flex-basis: unset;
+        margin-bottom: 10px;
+    }
+    .main_area {
+        height:auto;
+        max-height: 45dvh;
+    }
+}
