@@ -2,7 +2,12 @@ var taskIdCounter=0;
 const status_array = ['todo', 'doing', 'completed', 'blocked'];
 var lists = document.querySelectorAll(".main_area");
 var radioValue;
-
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("logout").addEventListener("click", logout);
+});
+function logout() {
+    window.location.href = "./login.html";
+}
 document.addEventListener("DOMContentLoaded", function () {
     
     document.getElementById("new_task").addEventListener("click", function() {

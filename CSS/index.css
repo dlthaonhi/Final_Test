@@ -397,3 +397,15 @@ input::placeholder, textarea::placeholder {
 .dragging{
     border: 2px solid saddlebrown;
 }
+
+#logout {
+    display: flex;
+    gap: 2px;
+    position: relative;
+    left: 95%;
+    bottom: 0;
+    cursor: pointer;
+    width: fit-content;
+    align-items: center;
+    font-size: 15px;
+}
