@@ -394,6 +394,6 @@ input::placeholder, textarea::placeholder {
     gap: 2px;
 }
 
-.is_dragging{
+.dragging{
     border: 2px solid saddlebrown;
 }
