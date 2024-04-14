@@ -1,8 +1,11 @@
-var taskIdCounter=0; 
 const status_array = ['todo', 'doing', 'completed', 'blocked'];
-var lists = document.querySelectorAll(".main_area");
-var radioValue;
 
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("logout").addEventListener("click", logout);
+});
+function logout() {
+    window.location.href = "./login.html";
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     
@@ -23,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener("load", reload)
 
-    // dragDrop();
+    dragDrop();
     reloadCounter();
 });
 
@@ -36,8 +39,39 @@ function reload() {
         });
         // console.log(String(status+'List'));
     })
+    reloadCounter()
 }
 
+
+
+
+function reloadCounter() {
+    const counts = {
+        todoCount: 0,
+        doingCount: 0,
+        completedCount: 0,
+        blockedCount:0
+    };
+    
+    function incrementCountByString(string) {
+        if (counts.hasOwnProperty(string + 'Count')) {
+            counts[string + 'Count']++;
+        }
+    }
+    status_array.forEach(status => {
+        let dem =0;
+        let taskList = JSON.parse(localStorage.getItem('todoList')) || [];
+        taskList.forEach(task => 
+            {
+                if (task.status == status) incrementCountByString(String(status));
+
+            })
+
+        document.getElementById(String(status+'Counter')).textContent = counts[status + 'Count'];
+    })
+    const totalCount = Object.values(counts).reduce((acc, val) => acc + val, 0);
+    localStorage.setItem('sumCounter', totalCount.toString());
+}
 
 
 function resetForm() {
@@ -98,6 +132,7 @@ const date = new Date().toLocaleDateString('en-US', {
 // -----STORE_NEW-----
 
 // when click submit "add new task"
+
 function storeNewTask() {
     const new_cate = document.getElementById('new_cate').value;
     const new_title = document.getElementById('new_title').value;
@@ -105,7 +140,7 @@ function storeNewTask() {
     
     let check= checkValue(new_cate,new_title,new_content); 
     if (check == true) {
-        var taskIdCounter = localStorage.getItem('todoCount')
+        var taskIdCounter = localStorage.getItem('sumCounter')
         const task = { 
             id: ++taskIdCounter,
             category: new_cate, 
@@ -191,7 +226,10 @@ function renderTask(task,addList) {
     });
 }
 
-var taskList;
+var taskList = JSON.parse(localStorage.getItem('todoList')) || [];
+var oldStatus;
+var newStatus;
+// var radio;
 //when click icon "Edit"
 function editTask(taskId) {
     //Hien giao dien Edit
@@ -201,22 +239,10 @@ function editTask(taskId) {
     document.querySelector(".new_todo_title").textContent = "Edit Task";
     document.getElementById("submit").style.display = 'none';
     document.getElementById("edit").style.display = 'block';
-    // document.querySelector(".task_choice").style.display='flex';
-
-    // // console.log(this.status);
-    // let statusOld = this.parentNode;
-    // console.log(statusOld);
-
-    // var radios = document.getElementsByName('status');
-    // for (var i=0;i<radios.length;i++) {
-    //     if (radios[i].checked) {
-    //         console.log(radios[i].value);
-    //         break;
-    //     }
-    // }
 
     taskList = JSON.parse(localStorage.getItem('todoList')) || [];
     editing_task = taskList.find(task =>  parseInt(task.id) == parseInt(taskId));
+    console.log(editing_task);
     // console.log(editing_task);
     // if (editing_task == undefined) {
     //     let taskList = JSON.parse(localStorage.getItem(String(statusNow+'List'))) || [];
@@ -228,27 +254,25 @@ function editTask(taskId) {
     document.getElementById('new_cate').value = editing_task.category;
     document.getElementById('new_title').value = editing_task.title;
     document.getElementById('new_content').value = editing_task.content;
-    // oldList = editing_task.status + 'List';
-    // console.log("old: ",oldList);
-    //checked_radio
-    // console.log(editing_task.status);
+    document.querySelector(`input[name="status"][value="${editing_task.status}"]`).checked = true;
 
+    oldStatus = editing_task.status;
 }
 
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("edit").addEventListener("click", function () {
-        // console.log("abc");
         storeTask(taskId);
     });
 });
 
 function storeTask(taskId) {
     // console.log('hihi');
+    // console.log(this);
     var radios = document.getElementsByName('status');
     for (var i=0;i<radios.length;i++) {
         if (radios[i].checked) {
-            console.log(radios[i].value);
+            newStatus = radios[i].value;
             break;
         }
     }
@@ -257,22 +281,10 @@ function storeTask(taskId) {
     console.log(radio);
     radio.checked = true;
 
-    // localList = String(radios[i].value+'List');
-    // if (radios[i].value == 'doing') localList = 'doingList';
-    // if (radios[i].value == 'completed') localList = 'completedList';
-    // if (radios[i].value == 'blocked') localList = 'blockedList';
-    // console.log(localList);
-
-    
     taskList = JSON.parse(localStorage.getItem('todoList')) || [];
-    // let oldTakeList = JSON.parse(localStorage.getItem(String(oldList))) || [];
-    // console.log("List ne", oldTakeList);
+
     let editing_task_index = taskList.findIndex(task => task.id == parseInt(taskId));
-    // var checkedradio = $('[name="status"]:radio:checked').val();
 
-    // let localTakeList = JSON.parse(localStorage.getItem(String(localList))) || [];
-
-    // console.log(ra);
     const new_cate = document.getElementById('new_cate').value;
     const new_title = document.getElementById('new_title').value;
     const new_content = document.getElementById('new_content').value;
@@ -284,28 +296,29 @@ function storeTask(taskId) {
             category: new_cate, 
             title: new_title, 
             content: new_content,
-            status: radios[i].value
+            status: newStatus
         };
-        console.log(task);
-        console.log(editing_task_index);
+        console.log("Index Task",editing_task_index, task);
     
         taskList[editing_task_index]=task;
         localStorage.setItem('todoList', JSON.stringify(taskList))
-        if (String(editing_task.status) !== String(radios[i].value)) {
-            // deleteTask(taskId);
-            const taskElement = document.querySelector(`.delete_task[data-id="${taskId}"]`).closest('.task_area');
+
+        // Set in HTLM
+        const taskElement = document.querySelector(`.delete_task[data-id="${taskId}"]`).closest('.task_area');
+        taskElement.querySelector('.task_title_text p').textContent = new_cate;
+        taskElement.querySelector('.task_title_text h4').textContent = new_title;
+        taskElement.querySelector('.task_main p').textContent = new_content;  
+
+        taskElement.className = `task_area ${task.status}`;
+
+        if (oldStatus != newStatus) {
             taskElement.remove();
-            renderTask(taskId,String(radios[i].value + 'List')) 
+            renderTask(task,String(newStatus + 'List'))
+            reloadCounter()         
         }
-        else {
-            const taskElement = document.querySelector(`.delete_task[data-id="${taskId}"]`).closest('.task_area');
-            taskElement.remove();
-            renderTask(taskId,String(radios[i].value + 'List'))    
-        }
+
         document.getElementById("new_todo").style.display = 'none';
     
-    
-        // reload();
         resetForm();
     }
 
@@ -314,28 +327,127 @@ function storeTask(taskId) {
 // -----DELETE-TASK-----
 function deleteTask(taskId) {
     console.log("ID của task cần xóa:", taskId);
-    // if (deleteList == 'taskList') {
-    //     var radios = document.getElementsByName('status');
-    //     for (var i=0;i<radios.length;i++) {
-    //         if (radios[i].checked) {
-    //             console.log(radios[i].value);
-    //             break;
-    //         }
-    //     }
-    //     deleteList=String(radios[i].value+"List")
-    // }
 
-    // console.log(deleteList);
+    //detele in HTML
     const taskElement = document.querySelector(`.delete_task[data-id="${taskId}"]`).closest('.task_area');
     taskElement.remove();
 
-    let taskList = JSON.parse(localStorage.getItem('todoList')) || [];
+    //delete in localStorage
+    taskList = JSON.parse(localStorage.getItem('todoList')) || [];
     taskList = taskList.filter(task => {
-        parseInt(task.id) !== parseInt(taskId);
+        return parseInt(task.id) != parseInt(taskId);
         console.log("task_delete_id",task.id, '  ', taskId);
     });
     console.log("deleteList", taskList);
-    // console.log(deleteList);
     localStorage.setItem('todoList', JSON.stringify(taskList));
+    reloadCounter();
+}
+
+
+// -----DRAG-&-DROP-----
+
+var lists = document.querySelectorAll(".main_area");
+
+function dragDrop() {
+
+    document.addEventListener('dragstart', function(e) {
+
+        e.target.classList.add('dragging'); 
+        taskId = e.target.querySelector(".edit_task").getAttribute("data-id");
+
+        console.log("ID :", taskId);
+        console.log('selected');
+    })
+        
+    document.addEventListener('dragend', function(e) {
+        e.target.classList.remove('dragging');
+        console.log('end');                
+    });
+        
+    lists.forEach(list => {
+        list.addEventListener('dragover', function(e) {
+            e.preventDefault(); 
+            console.log('over');
+        });
+        list.addEventListener('drop', function(e) {
+            e.preventDefault();
+            console.log('drop:', e);
+            console.log('drop');
+            const draggedItem = document.querySelector('.dragging'); 
+            if (draggedItem) list.appendChild(draggedItem);    
+            console.log(String(list.id).replace(/List/g,''));
+            newStatus = String(list.id).replace(/List/g,'');
+            console.log('new status', newStatus);
+
+            taskList = JSON.parse(localStorage.getItem('todoList')) || [];
+            taskList.forEach(task => {
+                if (task.id == taskId) {
+                    task.status = newStatus;
+                    console.log(task.status);
+                }
+            })
+            localStorage.setItem('todoList', JSON.stringify(taskList));
+            reloadCounter()
+        });
+    });
+                 
+
+}
+
+var radios = document.getElementsByName('status');
+function checkedRadio() {
+    for (var i=0;i<radios.length;i++) {
+        if (radios[i].checked) {
+            console.log(radios[i].value);
+            radioValue = radios[i].value
+            break;
+        }
+    }
+}
+
+
+function saveDrop(taskId,localList,oldList) {
+    console.log("localList befor if: ",String(localList), JSON.parse(localStorage.getItem(String(localList))) || []);
+    // console.log(localList,oldList);
+    let oldTakeList = JSON.parse(localStorage.getItem(String(oldList))) || [];
+        console.log("oldList: ",String(oldList), oldTakeList);
+        console.log(taskId);
+        let editing_task_index = oldTakeList.findIndex(task => task.id == parseInt(taskId));
+        let localTakeList = JSON.parse(localStorage.getItem(String(localList))) || [];
+        console.log("localList after if: ",String(localList), localTakeList);
+        console.log(editing_task_index )
+
+        
+        if (localList !== oldList ) {
+        
+
+        console.log(oldTakeList[editing_task_index]);
+        oldTakeList[editing_task_index].status = radioValue;
+        if(oldTakeList[editing_task_index].id !== localTakeList.find(task => task.id = oldTakeList[editing_task_index].id)){
+            localTakeList.push(oldTakeList[editing_task_index]);
+            localStorage.setItem(String(localList),JSON.stringify(localTakeList));
+        }
+        
+        console.log(taskId);
+        deleteDrag(taskId,oldList);
+    } 
+}
+
+function deleteDrag(taskId, deleteList) {
+    console.log("ID của task cần xóa:", taskId);
+    console.log("Danh sách cần xóa từ:", deleteList);
+
+    // Lấy danh sách công việc từ localStorage hoặc một mảng trống nếu không có
+    let taskList = JSON.parse(localStorage.getItem(deleteList)) || [];
+
+    // Lọc các công việc có id khác với taskId
+    taskList = taskList.filter(task => parseInt(task.id) != parseInt(taskId));
+
+    console.log("Danh sách sau khi xóa:", taskList);
+
+    // Cập nhật lại localStorage với danh sách mới
+    localStorage.setItem(deleteList, JSON.stringify(taskList));
+
+    // Reload số lượng công việc cho mỗi danh sách
     reloadCounter();
 }

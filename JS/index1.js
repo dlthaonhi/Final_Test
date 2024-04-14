@@ -43,7 +43,6 @@ function reload() {
         });
         console.log(String(status+'List'), taskList);
     })
-    
 }
 
 function reloadCounter() {
@@ -61,7 +60,6 @@ function reloadCounter() {
         let save_dem = document.getElementById(String(status+'Counter'))
         save_dem.textContent=dem;  
     })
- 
 }
 
 
@@ -104,10 +102,7 @@ function checkValue(new_cate,new_title,new_content) {
 function checkElement(element) {
     console.log(element);
 
-
     const value = element.value;
-
-
 
     if (!value || (/^\s*$/.test(value))) {
         console.log("Chưa nhập Category");
@@ -374,20 +369,6 @@ function saveDrop(taskId,localList,oldList) {
     } 
 }
 
-// function deleteDrag(taskId,deleteList) {
-//     console.log("ID của task cần xóa:", taskId);
-//     console.log(deleteList);
-
-//     let taskList = JSON.parse(localStorage.getItem(String(deleteList))) || [];
-//     console.log("taskId delete: ", taskId);
-//     taskList = taskList.filter(task => {
-//         return task.id !== parseInt(taskId);
-//     });
-//     console.log("deletedList", taskList);
-//     localStorage.setItem(String(deleteList), JSON.stringify(taskList));
-//     reloadCounter();   
-//     // reload();
-// }
 function deleteDrag(taskId, deleteList) {
     console.log("ID của task cần xóa:", taskId);
     console.log("Danh sách cần xóa từ:", deleteList);
@@ -425,7 +406,7 @@ function editTask(taskId) {
     document.querySelector(".new_todo_title").textContent = "Edit Task";
     document.getElementById("submit").style.display = 'none';
     document.getElementById("edit").style.display = 'block';
-    document.querySelector(".task_choice").style.display='flex';
+    // document.querySelector(".task_choice").style.display='flex';
 
     // // console.log(this.status);
     // let statusOld = this.parentNode;
@@ -563,7 +544,7 @@ function deleteTask(taskId,deleteList) {
 
     let taskList = JSON.parse(localStorage.getItem(String(deleteList))) || [];
     taskList = taskList.filter(task => {
-        task.id !== parseInt(taskId);
+        parseInt(task.id) !== parseInt(taskId);
         console.log("task_delete_id",task.id, '  ', taskId);
     });
     console.log("deleteList", taskList);

@@ -2,7 +2,7 @@ const userList = JSON.parse(localStorage.getItem('userList')) || [];
 
 console.log(userList);
 
-1
+
 function validateEmail(email) {
   var re = /\S+@\S+\.\S+/;
   return re.test(email);
